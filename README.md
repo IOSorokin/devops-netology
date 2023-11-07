@@ -1,4 +1,5 @@
 # devops-netology
+New 
 my name Igor
 
 В первой строке будут игнорироваться папка /.terraform/
