@@ -1,0 +1,100 @@
+Задание 1
+
+	Опишите основные преимущества применения на практике IaaC-паттернов.
+1) Уменьшение затрат времени и стоимости для развертываения рутинных задач систем и сервисов.
+2) Более раннее обнаружение ошибок и противоречий
+3) Быстрое развертывание сервисов после проверки, буквально по одному нажанию.
+4) Автоматизация развертывания новых сервисов в прод. 
+
+	Какой из принципов IaaC является основополагающим?
+Я считаю что основополагающим принципом является time to market это крайне необходимо бизнесу. Главное чтобы 
+все релизы были опубликованы быстро и без ошибок.
+
+Задание 2
+
+	Чем Ansible выгодно отличается от других систем управление конфигурациями?
+1) Он работает в режиме Push 
+2) Не нуждается в агентах на целевых хостах
+3) Работает по протоколу SSH	
+4) Низкий порог входа в отличии от других систем 
+
+Какой, на ваш взгляд, метод работы систем конфигурации более надёжный — push или pull?
+Мое мнение для работы систем конфигураций более надежный push вариант, так как мы конкретно указываем целевые хосты для
+применения конфигурации. В таком случае меньше ошибок применения неправильной конфигурации на целевых хостах. (Например если случайно 
+забыть выключить прием конфигурации на удаленном хосте, человеческий фактор, и зависание или ошибка агента на удаленном
+целевом хосте)
+
+Задание 3
+
+VAGRANT
+root@dev-iosorokin:/home/isadm# vagrant -v
+Vagrant 2.2.19
+
+TERRAFORM
+root@dev-iosorokin:/home/isadm# terraform -version
+Terraform v1.5.6
+on linux_amd64
+
+VIRTUALBOX
+root@dev-iosorokin:/home/isadm# virtualbox -h
+Oracle VM VirtualBox VM Selector v6.1.38_Ubuntu
+(C) 2005-2022 Oracle Corporation
+All rights reserved.
+
+ANSIBLE 
+root@dev-iosorokin:/home/isadm# ansible --version
+ansible 2.10.8
+  config file = None
+  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3/dist-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 3.10.12 (main, Jun 11 2023, 05:26:28) [GCC 11.4.0]
+
+
+Звдвние 4
+root@dev-iosorokin:/home/isadm# docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+root@dev-iosorokin:/home/isadm# vagrant --version
+Vagrant 2.2.19
+
+root@dev-iosorokin:/home/isadm# vagrant box add vagrant.box --name --provider=virtualbox --force
+==> box: Box file was not detected as metadata. Adding it directly...
+==> box: Adding box '--provider=virtualbox' (v0) for provider:
+    box: Unpacking necessary files from: file:///home/isadm/vagrant.box
+==> box: Successfully added box '--provider=virtualbox' (v0) for 'virtualbox'!
+root@dev-iosorokin:/home/isadm#
+
+ЗАПУСК VAGRANT Правда виртуальная машина не поддерживает виртуализацию, о чем говорят ошибки
+
+root@dev-iosorokin:/home/isadm# vagrant up
+Bringing machine 'server1.local' up with 'virtualbox' provider...
+==> server1.local: Clearing any previously set forwarded ports...
+==> server1.local: Clearing any previously set network interfaces...
+==> server1.local: Preparing network interfaces based on configuration...
+    server1.local: Adapter 1: nat
+    server1.local: Adapter 2: hostonly
+==> server1.local: Forwarding ports...
+    server1.local: 22 (guest) => 20011 (host) (adapter 1)
+    server1.local: 22 (guest) => 2222 (host) (adapter 1)
+==> server1.local: Running 'pre-boot' VM customizations...
+==> server1.local: Booting VM...
+There was an error while executing `VBoxManage`, a CLI used by Vagrant
+for controlling VirtualBox. The command and stderr is shown below.
+
+Command: ["startvm", "4f6a616f-e087-45d7-b9ec-d5a0b6151825", "--type", "headless"]
+
+Stderr: VBoxManage: error: VT-x is not available (VERR_VMX_NO_VMX)
+VBoxManage: error: Details: code NS_ERROR_FAILURE (0x80004005), component ConsoleWrap, interface IConsole
+
+root@dev-iosorokin:/home/isadm# sudo apt-get install cpu-checker
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+cpu-checker is already the newest version (0.7-1.3build1).
+cpu-checker set to manually installed.
+0 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+root@dev-iosorokin:/home/isadm# sudo kvm-ok
+INFO: Your CPU does not support KVM extensions
+KVM acceleration can NOT be used
+root@dev-iosorokin:/home/isadm# vboxmanage list vms
