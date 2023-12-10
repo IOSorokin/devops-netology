@@ -1,10 +1,14 @@
 Задание 1
 1. Скачал необходимые зависимости src 
+
 2. При анализе файла .gitignore сохранять личную информацию допустимо в terraform-файле personal.auto.tfvars
+
 3. Переменная random_password следующая: "result": "FrdthkyNOp7XV0OC",
+
 4. При раскоментировании main.tf возникло 2 ошибки.
 	- Первая ошибка говорит что все блоки должны состоять из 2ух аргументов (type, name)
 	- Вторая говорит о том что название должно начинаться только с букв. 
+
 5. root@devsorokin:/home/devsorokin/ter-homeworks/01/src# docker ps
 CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                  NAMES
 532237bd36cd   nginx:latest   "/docker-entrypoint.…"   6 seconds ago   Up 5 seconds   0.0.0.0:8000->80/tcp   tutorial
