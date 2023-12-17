@@ -26,12 +26,15 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS   
 	Данный ключ нужен для того чтобы автоматически принимать конфигурацию без его подтверждения вручную. Опасность применения заключается в том, что в случае ошибки в команде или конфиг файле 
 	изменения передадуться всем ВМ или сервисам в указанном диапазоне.
 
+```
 	root@devsorokin:/home/devsorokin/ter-homeworks/01/src# docker ps
 	CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                  NAMES
 	48e99006bbde   nginx:latest   "/docker-entrypoint.…"   13 seconds ago   Up 13 seconds   0.0.0.0:8000->80/tcp   hello_world
+```
 
 7. Уничтожьте созданные ресурсы с помощью terraform. Убедитесь, что все ресурсы удалены. Приложите содержимое файла terraform.tfstate.
  Выполнил teraform destroy. Файл terraform.tfstate ниже
+```
 {
   "version": 4,
   "terraform_version": "1.5.7",
@@ -41,10 +44,14 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS   
   "resources": [],
   "check_results": null
 }
+```
 
-8. Объясните, почему при этом не был удалён docker-образ nginx:latest. Ответ обязательно подкрепите строчкой из документации terraform провайдера docker. (ищите в классификаторе resource docker_image )
+9. Объясните, почему при этом не был удалён docker-образ nginx:latest. Ответ обязательно подкрепите строчкой из документации terraform провайдера docker. (ищите в классификаторе resource docker_image )
  Docker image не удалился потому, что в main.tf мы указали хранить файл локально. 
+
+```
 resource "docker_image" "nginx" {
   name         = "nginx:latest"
   keep_locally = true
 }
+```
