@@ -15,11 +15,13 @@
 	- Вторая говорит о том что название должно начинаться только с букв. 
 
 6. Выполните код. В качестве ответа приложите: исправленный фрагмент кода и вывод команды docker ps.
+
 ```
- 	root@devsorokin:/home/devsorokin/ter-homeworks/01/src# docker ps
-	CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                  NAMES
-	532237bd36cd   nginx:latest   "/docker-entrypoint.…"   6 seconds ago   Up 5 seconds   0.0.0.0:8000->80/tcp   tutorial
+root@devsorokin:/home/devsorokin/ter-homeworks/01/src# docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                  NAMES
+532237bd36cd   nginx:latest   "/docker-entrypoint.…"   6 seconds ago   Up 5 seconds   0.0.0.0:8000->80/tcp   tutorial
 ```   
+
 6. Замените имя docker-контейнера в блоке кода на hello_world. Не перепутайте имя контейнера и имя образа. Мы всё ещё продолжаем использовать name = "nginx:latest". Выполните команду terraform apply -auto-approve. Объясните своими словами, в чём может быть опасность применения ключа -auto-approve. Догадайтесь или нагуглите зачем может пригодиться данный ключ? В качестве ответа дополнительно приложите вывод команды docker ps.
 	Данный ключ нужен для того чтобы автоматически принимать конфигурацию без его подтверждения вручную. Опасность применения заключается в том, что в случае ошибки в команде или конфиг файле 
 	изменения передадуться всем ВМ или сервисам в указанном диапазоне.
