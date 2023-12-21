@@ -66,7 +66,7 @@ centos-new
 
 Сделал то же самое с Debian 
 
-root@isadm-Virtual-Machine:/# docker run -d -v /data:/data debian sleep infinity
+``` root@isadm-Virtual-Machine:/# docker run -d -v /data:/data debian sleep infinity
 9586653bb4b42760048493682c1e895d6df035a5dbecc88558501f3fafebaefd
 root@isadm-Virtual-Machine:/# docker ps -a
 CONTAINER ID   IMAGE     COMMAND            CREATED          STATUS          PORTS     NAMES
@@ -106,7 +106,7 @@ drwxr-xr-x  11 root root 4096 Nov 20 00:00 var
 root@9586653bb4b4:/# echo '1' > /data/debian-file
 root@9586653bb4b4:/# ls /data/
 centos-new  debian-file
-
+```
 root@9586653bb4b4:/# cat /etc/*-release
 PRETTY_NAME="Debian GNU/Linux 12 (bookworm)"
 NAME="Debian GNU/Linux"
