@@ -206,6 +206,9 @@ See "man sudo_root" for details.
 ubuntu@fhm3ib2jj6jnm6f9da8j:~$ curl ifconfig.me
 84.201.135.44ubuntu@fhm3ib2jj6jnm6f9da8j:~$ 
 ```
+![изображение](https://github.com/IOSorokin/devops-netology/assets/148979909/11eda4af-bb0d-426f-9874-83cc8bc85a5f)
+
+
 
 ## 7. Ответьте, как в процессе обучения могут пригодиться параметры preemptible = true и core_fraction=5 в параметрах ВМ.
 
@@ -216,5 +219,4 @@ ubuntu@fhm3ib2jj6jnm6f9da8j:~$ curl ifconfig.me
 core_fraction=5 могут пригодится для ограничения производительности если это необходимо, соответственно экономятся важные ресурсы облака. (Зачем использовать машину на 100% если в этом нет необходимости в некоторых случаях).
 
 Фото личного кабинета с созданной виртуальной машиной
-![изображение](https://github.com/IOSorokin/devops-netology/assets/148979909/efb3ef1f-2324-410e-a79b-80702a778848)
 
