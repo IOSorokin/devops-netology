@@ -220,3 +220,27 @@ core_fraction=5 могут пригодится для ограничения п
 
 Фото личного кабинета с созданной виртуальной машиной
 
+# Задание 2
+
+1. Изучите файлы проекта.
+2.  Замените все хардкод-значения для ресурсов yandex_compute_image и yandex_compute_instance на отдельные переменные. К названиям переменных ВМ добавьте в начало префикс vm_web_ . Пример: vm_web_name.
+    Объявите нужные переменные в файле variables.tf, обязательно указывайте тип переменной. Заполните их default прежними значениями из main.tf.
+3.   Проверьте terraform plan. Изменений быть не должно.
+
+Ответ: После замены всех хардкорных значений терраформ план не изменился об этом говорит вывод команды:
+
+```
+root@dev:/home/isadm/DZ02/src# terraform plan
+data.yandex_compute_image.ubuntu-2004-lts: Reading...
+yandex_vpc_network.develop: Refreshing state... [id=enp4fv8u4lidiea4agg8]
+data.yandex_compute_image.ubuntu-2004-lts: Read complete after 0s [id=fd8k54g2t50mekbk1ie1]
+yandex_vpc_subnet.develop: Refreshing state... [id=e9bviqiicobfho2lslb6]
+yandex_compute_instance.platform: Refreshing state... [id=fhmn9g6bo19u2olko0pd]
+
+No changes. Your infrastructure matches the configuration.
+
+Terraform has compared your real infrastructure against your configuration and found no differences, so no changes are needed.
+root@dev:/home/isadm/DZ02/src# 
+```
+
+# Задание 3
