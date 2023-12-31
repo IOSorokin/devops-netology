@@ -419,3 +419,94 @@ Terraform has compared your real infrastructure against your configuration and f
 
 # Задание 6
 
+  ##  Вместо использования трёх переменных ".._cores",".._memory",".._core_fraction" в блоке resources {...}, объедините их в единую map-переменную vms_resources и внутри неё конфиги обеих ВМ в виде вложенного map.
+	Собрал переменные в виде вложенного map 
+ 
+```
+variable "vms_resources_db" {
+  description = "resources for VM db"
+  type = map
+  default = {
+     cores         = 2
+     memory        = 2
+     core_fraction = 20
+  }
+}
+
+variable "vms_resources_web" {
+  description = "resources for VM web"
+  type = map
+  default = {
+     cores         = 2
+     memory        = 1
+     core_fraction = 5
+  }
+}
+
+```
+
+### Создайте и используйте отдельную map переменную для блока metadata, она должна быть общая для всех ваших ВМ.
+
+```
+metadata = {
+    serial-port-enable = 1
+    ssh-keys           = "${var.vm_username}:${var.vms_ssh_root_key}"
+  }
+```
+Данные переменные используются для создания всех ВМ
+
+### Найдите и закоментируйте все, более не используемые переменные проекта.
+Закоментировал все неиспользуемые данные 
+```
+resource "yandex_compute_instance" "netology-develop-platform-web" {
+   name        = local.name_local_vm_web
+#  name        = var.vm_web_name
+  platform_id = var.vm_web_platform
+resources {
+    cores         = var.vms_resources_web.cores
+    memory        = var.vms_resources_web.memory
+    core_fraction = var.vms_resources_web.core_fraction
+  }
+#  resources {
+#    cores         = 2
+#   memory         = 1
+#    core_fraction = 5
+#  }  
+```
+так же
+
+```
+resource "yandex_compute_instance" "netology-develop-platform-db" {
+   name        = local.name_local_vm_db
+#  name        = var.vm_db_name
+  platform_id = var.vm_db_platform
+
+resources {
+  cores = var.vms_resources_db.cores
+  memory = var.vms_resources_db.memory
+  core_fraction = var.vms_resources_db.core_fraction
+}
+# resources {
+#   cores         = 2
+#   memory        = 2
+#   core_fraction = 20
+# }
+```
+
+## Проверьте terraform plan. Изменений быть не должно.
+После выполнения видим, что изменений после введения переменных не было 
+
+```
+root@dev:/home/isadm/DZ02/src# terraform plan
+data.yandex_compute_image.ubuntu-2004-lts: Reading...
+yandex_vpc_network.develop: Refreshing state... [id=enpld3uvf0b932op4b4l]
+data.yandex_compute_image.ubuntu-2004-lts: Read complete after 1s [id=fd8k54g2t50mekbk1ie1]
+yandex_vpc_subnet.develop: Refreshing state... [id=e9bf5eek12avu6e33mfl]
+yandex_compute_instance.netology-develop-platform-db: Refreshing state... [id=fhm40b7vffcsomiu477t]
+yandex_compute_instance.netology-develop-platform-web: Refreshing state... [id=fhm3eckf755411amv3nt]
+
+No changes. Your infrastructure matches the configuration.
+
+Terraform has compared your real infrastructure against your configuration and found no differences, so no changes are needed.
+root@dev:/home/isadm/DZ02/src#
+```
