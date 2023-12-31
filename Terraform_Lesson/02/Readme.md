@@ -343,3 +343,79 @@ root@dev:/home/isadm/DZ02/src#
 	Скрин кабинета Яндекс
  ![изображение](https://github.com/IOSorokin/devops-netology/assets/148979909/d450da34-86c0-49f7-af2e-31576cf4eef9)
 
+
+# Задание 4 Объявите в файле outputs.tf один output типа map, содержащий { instance_name = external_ip } для каждой из ВМ. Примените изменения.
+	В качестве решения приложите вывод значений ip-адресов команды terraform output.
+
+ Вывод terraform output 
+ ```
+root@dev:/home/isadm/DZ02/src# terraform output
+vm_external_nat_ip_address = "158.160.96.219"
+vm_web_external_nat_ip_address = "158.160.97.84"
+root@dev:/home/isadm/DZ02/src#
+
+```
+# Задание 5
+##    В файле locals.tf опишите в одном local-блоке имя каждой ВМ, используйте интерполяцию ${..} с несколькими переменными по примеру из лекции.
+	Добавил переменные с имененм ВМ в одном блоке locals.tf
+ ```
+ locals {
+  name_local_vm_web = "${var.vm_web_name}"
+  name_local_vm_db = "${var.vm_db_name}"
+}
+```    
+##  Замените переменные с именами ВМ из файла variables.tf на созданные вами local-переменные.
+   Заменил переменные 
+
+```
+resource "yandex_compute_instance" "netology-develop-platform-web" {
+   name        = local.name_local_vm_web
+#  name        = var.vm_web_name
+  platform_id = var.vm_web_platform
+  resources {
+    cores         = 2
+    memory        = 1
+    core_fraction = 5
+  }  
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.ubuntu-2004-lts.id
+    }
+  }
+  scheduling_policy {
+    preemptible = true
+  }
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = true
+  }
+  metadata = {
+    serial-port-enable = 1
+    ssh-keys           = "${var.vm_username}:${var.vms_ssh_root_key}"
+  }
+}
+resource "yandex_compute_instance" "netology-develop-platform-db" {
+   name        = local.name_local_vm_db
+#  name        = var.vm_db_name
+
+```  
+
+## Примените изменения.
+
+	Принял изменения, в тогде изменений не было, что и следовало доказать 
+```
+root@dev:/home/isadm/DZ02/src# terraform plan
+data.yandex_compute_image.ubuntu-2004-lts: Reading...
+yandex_vpc_network.develop: Refreshing state... [id=enpld3uvf0b932op4b4l]
+data.yandex_compute_image.ubuntu-2004-lts: Read complete after 0s [id=fd8k54g2t50mekbk1ie1]
+yandex_vpc_subnet.develop: Refreshing state... [id=e9bf5eek12avu6e33mfl]
+yandex_compute_instance.netology-develop-platform-db: Refreshing state... [id=fhm40b7vffcsomiu477t]
+yandex_compute_instance.netology-develop-platform-web: Refreshing state... [id=fhm3eckf755411amv3nt]
+
+No changes. Your infrastructure matches the configuration.
+
+Terraform has compared your real infrastructure against your configuration and found no differences, so no changes are needed.
+```
+
+# Задание 6
+
